@@ -1,5 +1,5 @@
 FILE_NAME = './local_copy.log'
 
 for line in open(FILE_NAME):
-  elements = line.split(' [','] ')
+  elements = line.split("[","]")
   print(elements[1])
