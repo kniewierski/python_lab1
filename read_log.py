@@ -7,7 +7,6 @@ total = 0
 
 for line in open(FILE_NAME):
   repl = line.replace("[", "#", 10).replace(":", "#", 10).replace("/", "#", 10)
-  print("this is repl", repl, "line")
   year = repl.split('#')[3]
   total += 1
   if year == str(1995):
