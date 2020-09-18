@@ -7,6 +7,7 @@ total = 0
 
 for line in open(FILE_NAME):
   repl = line.replace("[", "#", 10).replace(":", "#", 10).replace("/", "#", 10)
+  print("this is repl", repl, "line")
   year = repl.split('#')[3]
   last = sum(1 for i in year if i == "1995")
   total = sum(1 for i in year)
