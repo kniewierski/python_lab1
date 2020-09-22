@@ -14,6 +14,8 @@ thursdays = 0
 fridays = 0
 saturdays = 0
 sundays = 0
+code_4xx = 0
+code_3xx = 0
 
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
@@ -52,8 +54,6 @@ for line in open(FILE_NAME):
     sundays += 1
   #Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[5]
-  code_4xx = 0
-  code_3xx = 0
   if int(return_code) >= 400 and int(return_code) <= 499:
     code_4xx += 1
   if int(return_code) >= 300 and int(return_code) <= 399:
