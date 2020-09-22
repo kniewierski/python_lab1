@@ -18,14 +18,12 @@ for line in open(FILE_NAME):
     if year[3] == str(1995):
         last += 1
   elements = regex.split(line)
+  if len(elements) < 3:
+    continue
   date = datetime.strptime(elements[1], "%d/%b/%Y:%H:%M:%S")
 print(elements)
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
-
-if not elements or len(elements) <5:
-  print("Error parsing line! Log entry added to ERRORS[] list...")
-  ERRORS.append(line)
 
 mon1 = datetime.strptime("09/Oct/1995:00:00:00", "%d/%b/%Y:%H:%M:%S")
 tue1 = datetime.strptime("10/Oct/1995:00:00:00", "%d/%b/%Y:%H:%M:%S")
