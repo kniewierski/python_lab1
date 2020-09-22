@@ -8,7 +8,7 @@ ERRORS = []
 
 last = 0
 total = 0
-regex = re.compile(r".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
+regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
 
 for line in open(FILE_NAME):
   repl = line.replace("[", "#", 10).replace(":", "#", 10).replace("/", "#", 10)
