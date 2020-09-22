@@ -18,6 +18,7 @@ for line in open(FILE_NAME):
     if year[3] == str(1995):
         last += 1
   elements = regex.split(line)
+  date = datetime.strptime(elements[0], "%d/%b/%Y:%H:%M:%S")
 
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
@@ -42,13 +43,13 @@ fridays = 1
 saturdays = 1
 sundays = 1
 
-mon_delta = mon1 - elements[0]
-tue_delta = tue1 - elements[0]
-wed_delta = wed1 - elements[0]
-thu_delta = thu1 - elements[0]
-fri_delta = fri1 - elements[0]
-sat_delta = sat1 - elements[0]
-sun_delta = sun1 - elements[0]
+mon_delta = mon1 - date
+tue_delta = tue1 - date
+wed_delta = wed1 - date
+thu_delta = thu1 - date
+fri_delta = fri1 - date
+sat_delta = sat1 - date
+sun_delta = sun1 - date
 
 for line in open(FILE_NAME):
     if mon_delta/7 == range(1, 750000, 1):
