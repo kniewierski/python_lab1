@@ -1,8 +1,9 @@
 FILE_NAME = './local_copy.log'
 
 import re
-from datetime import date
-from datetime import datetime
+from datetime import datetime, timedelta, date
+import calendar
+from collections import Counter
 
 last = 0
 total = 0
@@ -14,8 +15,10 @@ fridays = 0
 saturdays = 0
 sundays = 0
 
+# split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
 
+# Count number of requests in 1995
 for line in open(FILE_NAME):
   repl = line.replace("[", "#", 10).replace(":", "#", 10).replace("/", "#", 10)
   year = repl.split('#')
@@ -23,10 +26,15 @@ for line in open(FILE_NAME):
   if len(year)>=3:
     if year[3] == str(1995):
         last += 1
+ 
+ # Splits regex into elements
   elements = regex.split(line)
+  # Bypasses short lines that cause errors
   if len(elements) < 3:
     continue
+  # Extract the Date/Time in Element 1
   date = datetime.strptime(elements[1], "%d/%b/%Y:%H:%M:%S")
+  # Establish day of week based on date, and count number of requests per day of week
   weekday = date.isoweekday()
   if weekday == 1:
     mondays += 1
@@ -42,6 +50,16 @@ for line in open(FILE_NAME):
     saturdays += 1
   if weekday == 7:
     sundays += 1
+  #Calculates percentage of unsuccessful requests and redirected requests
+  return_code = elements[5]
+  code_4xx = 0
+  code_3xx = 0
+  if int(return_code) >= 400 and int(return_code) <= 499:
+    code_4xx += 1
+  if int(return_code) >= 300 and int(return_code) <= 399:
+    code_3xx += 1
+
+
 
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
@@ -52,3 +70,5 @@ print("The total number of requests made on Thursdays:", thursdays)
 print("The total number of requests made on Fridays:", fridays)
 print("The total number of requests made on Saturdays:", saturdays)
 print("The total number of requests made on Sundays:", sundays)
+print("The total number of unsuccessful requests:", code_4xx)
+print("The total number of redirected requests:", code_3xx)
