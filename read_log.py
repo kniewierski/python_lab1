@@ -14,6 +14,13 @@ thursdays = 0
 fridays = 0
 saturdays = 0
 sundays = 0
+mon_count = 0
+tue_count = 0
+wed_count = 0
+thu_count = 0
+fri_count = 0
+sat_count = 0
+sun_count = 0
 code_4xx = 0
 code_3xx = 0
 total_reqs = 0
@@ -53,7 +60,10 @@ for line in open(FILE_NAME):
     saturdays += 1
   if weekday == 7:
     sundays += 1
-  #Calculates percentage of unsuccessful requests and redirected requests
+
+  # Counts the number of times each day of the week occurs in the log file
+
+  # Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[5]
   total_reqs += 1
   if int(return_code) >= 400 and int(return_code) <= 499:
@@ -63,6 +73,7 @@ for line in open(FILE_NAME):
 
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
+
 
 
 print("There were ", last, "total requests made in the last year.")
