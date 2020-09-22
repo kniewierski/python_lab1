@@ -18,8 +18,8 @@ for line in open(FILE_NAME):
     if year[3] == str(1995):
         last += 1
   elements = regex.split(line)
-  date = datetime.strptime(elements[0], "%d/%b/%Y:%H:%M:%S")
-
+  date = datetime.strptime(elements[1], "%d/%b/%Y:%H:%M:%S")
+print(elements)
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
 
