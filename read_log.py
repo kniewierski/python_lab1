@@ -16,6 +16,7 @@ saturdays = 0
 sundays = 0
 code_4xx = 0
 code_3xx = 0
+total_reqs = 0
 
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
@@ -54,11 +55,14 @@ for line in open(FILE_NAME):
     sundays += 1
   #Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[5]
+  total_reqs += 1
   if int(return_code) >= 400 and int(return_code) <= 499:
     code_4xx += 1
   if int(return_code) >= 300 and int(return_code) <= 399:
     code_3xx += 1
 
+perc_4xx = (code_4xx/total_reqs)*100
+perc_3xx = (code_3xx/total_reqs)*100
 
 
 print("There were ", last, "total requests made in the last year.")
@@ -70,5 +74,5 @@ print("The total number of requests made on Thursdays:", thursdays)
 print("The total number of requests made on Fridays:", fridays)
 print("The total number of requests made on Saturdays:", saturdays)
 print("The total number of requests made on Sundays:", sundays)
-print("The total number of unsuccessful requests:", code_4xx)
-print("The total number of redirected requests:", code_3xx)
+print("The total number of unsuccessful requests was", code_4xx, ", resulting in", perc_4xx, "% of the total number of requests.")
+print("The total number of redirected requests was", code_3xx, ", resulting in", perc_3xx, "% of the total number of requests.")
