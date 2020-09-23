@@ -3,7 +3,7 @@ FILE_NAME = './local_copy.log'
 import re
 from datetime import datetime, timedelta, date
 import calendar
-from collections import Counter, OrderedDict
+from collections import Counter
 
 last = 0
 total = 0
@@ -65,9 +65,12 @@ for line in open(FILE_NAME):
     sundays += 1
 
   # Counts the number of times each day of the week occurs in the log file
-  days = list(dates.items(elements[1]))
+  days = elements[1]
   # If date is not logged in dictionary, adds date to dictionary
-
+  if days in dates:
+    continue
+  else:
+    dates[days] = 1
 
   # Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[6]
