@@ -93,9 +93,12 @@ for line in open(FILE_NAME):
 # Extracts the First date and Last date from log file
 first_date = datetime.strptime(list(dates.keys())[0], "%d/%b/%Y")
 last_date = datetime.strptime(list(dates.keys())[-1], "%d/%b/%Y")
-date_objects = datetime.strptime(list(dates.keys()), "%d/%b/%Y")
 
-for i in date_objects:
+
+date_list = list(dates.keys())
+
+for i in date_list:
+  date_object = date.strptime(i, "%d/%b/%Y")
   day_of_week = date.isoweekday()
   if day_of_week == 1:
     mon_count += 1
