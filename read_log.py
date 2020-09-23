@@ -26,7 +26,7 @@ code_3xx = 0
 total_reqs = 0
 
 files = {}
-dates = OrderedDict()
+dates = {}
 
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
