@@ -112,3 +112,4 @@ print("The total number of redirected requests was", code_3xx, ", resulting in",
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
 
+print(dates)
