@@ -25,6 +25,8 @@ code_4xx = 0
 code_3xx = 0
 total_reqs = 0
 
+files = {}
+
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
 
@@ -70,7 +72,18 @@ for line in open(FILE_NAME):
     code_4xx += 1
   if int(return_code) >= 300 and int(return_code) <= 399:
     code_3xx += 1
+  
+  # Creates a dictionary to track the number of times a file is requested
+  filename = elements[3]
+  # Checks elements[3] for new files or repeated files
+  if filename in files:
+    # Counts additional request of the file, if already added to dictionary
+    files[filename] += 1
+  # Counts the initial request of the file
+  else:
+    files[filename] = 1
 
+# Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
 
