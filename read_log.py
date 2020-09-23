@@ -26,6 +26,7 @@ code_3xx = 0
 total_reqs = 0
 
 files = {}
+dates = {}
 
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
 regex = re.compile(r".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
@@ -64,6 +65,12 @@ for line in open(FILE_NAME):
     sundays += 1
 
   # Counts the number of times each day of the week occurs in the log file
+  days = elements[1]
+  # If date is not logged in dictionary, adds date to dictionary
+  if days in dates:
+    continue
+  else:
+    dates[days] = 1
 
   # Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[6]
@@ -104,3 +111,4 @@ print("The total number of redirected requests was", code_3xx, ", resulting in",
 
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
+
