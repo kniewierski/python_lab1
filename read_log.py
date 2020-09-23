@@ -93,8 +93,24 @@ for line in open(FILE_NAME):
 # Extracts the First date and Last date from log file
 first_date = datetime.strptime(list(dates.keys())[0], "%d/%b/%Y")
 last_date = datetime.strptime(list(dates.keys())[-1], "%d/%b/%Y")
+date_objects = datetime.strptime(list(dates.keys()), "%d/%b/%Y")
 
-
+for i in date_objects:
+  day_of_week = date.isoweekday()
+  if day_of_week == 1:
+    mon_count += 1
+  if day_of_week == 2:
+    tue_count += 1
+  if day_of_week == 3:
+    wed_count += 1
+  if day_of_week == 4:
+    thu_count += 1
+  if day_of_week == 5:
+    fri_count += 1
+  if day_of_week == 6:
+    sat_count += 1
+  if day_of_week == 7:
+    sun_count += 1
 
 # Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
@@ -120,3 +136,8 @@ print("The least requested file was:", sorted(files, key = files.get, reverse = 
 
 print(first_date)
 print(last_date)
+
+print(mon_count)
+print(tue_count)
+print(sat_count)
+print(sun_count)
