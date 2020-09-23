@@ -104,3 +104,4 @@ print("The total number of unsuccessful requests was", code_4xx, ", resulting in
 print("The total number of redirected requests was", code_3xx, ", resulting in", perc_3xx, "% of the total number of requests.")
 
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
+print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
