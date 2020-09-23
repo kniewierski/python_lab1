@@ -87,7 +87,6 @@ for line in open(FILE_NAME):
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
 
-# Sorts the dictionary to choose the most requested file
 
 
 
