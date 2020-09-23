@@ -91,15 +91,14 @@ for line in open(FILE_NAME):
     files[filename] = 1
 
 # Extracts the First date and Last date from log file
-first_date = datetime.strptime(list(dates.keys())[0], "%d/%b/%Y")
-last_date = datetime.strptime(list(dates.keys())[-1], "%d/%b/%Y")
+first_date = date.strptime(list(dates.keys())[0], "%d/%b/%Y")
+last_date = date.strptime(list(dates.keys())[-1], "%d/%b/%Y")
 
-
-date_list = list(dates.keys())
-
-for i in date_list:
-  date_object = date.strptime(i, "%d/%b/%Y")
-  day_of_week = date.isoweekday()
+# Takes the keys from the Dates Dictionary and converts them to date objects
+for k in dates:
+  date_object = date.strptime(k, "%d/%b/%Y")
+  day_of_week = date_object.isoweekday()
+  # Increases counter for days of week
   if day_of_week == 1:
     mon_count += 1
   if day_of_week == 2:
@@ -115,6 +114,15 @@ for i in date_list:
   if day_of_week == 7:
     sun_count += 1
 
+# Divides total requests per week day and divides by number of times that weekday occured in the log
+mon_avg = (mondays/mon_count)
+tue_avg = (tuesdays/tue_count)
+wed_avg = (wednesdays/wed_count)
+thu_avg = (thursdays/thu_count)
+fri_avg = (fridays/fri_count)
+sat_avg = (saturdays/sat_count)
+sun_avg = (sundays/sun_count)
+
 # Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
@@ -124,23 +132,31 @@ perc_3xx = (code_3xx/total_reqs)*100
 
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
+print("")
 print("The total number of requests made on Mondays:", mondays)
+print("The average number of requests made on Mondays:", mon_avg)
+print("")
 print("The total number of requests made on Tuesdays:", tuesdays)
+print("The average number of requests made on Tuesdays:", tue_avg)
+print("")
 print("The total number of requests made on Wednesdays:", wednesdays)
+print("The average number of requests made on Wednesdays:", wed_avg)
+print("")
 print("The total number of requests made on Thursdays:", thursdays)
+print("The average number of requests made on Thursdays:", thu_avg)
+print("")
 print("The total number of requests made on Fridays:", fridays)
+print("The average number of requests made on Fridays:", fri_avg)
+print("")
 print("The total number of requests made on Saturdays:", saturdays)
+print("The average number of requests made on Saturdays:", sat_avg)
+print("")
 print("The total number of requests made on Sundays:", sundays)
-print("The total number of unsuccessful requests was", code_4xx, ", resulting in", perc_4xx, "% of the total number of requests.")
-print("The total number of redirected requests was", code_3xx, ", resulting in", perc_3xx, "% of the total number of requests.")
-
+print("The average number of requests made on Sundays:", sun_avg)
+print("")
+print("The percentage of redirected requests was", perc_3xx,)
+print("The percentage of unsuccessful requests was", perc_4xx,)
+print("")
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
 
-print(first_date)
-print(last_date)
-
-print(mon_count)
-print(tue_count)
-print(sat_count)
-print(sun_count)
