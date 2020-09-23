@@ -91,8 +91,10 @@ for line in open(FILE_NAME):
     files[filename] = 1
 
 # Extracts the First date and Last date from log file
-first_date = list(dates.keys())[0]
-last_date = list(dates.keys())[-1]
+first_date = datetime.strptime(list(dates.keys())[0], "%d/%b/%Y")
+last_date = datetime.strptime(list(dates.keys())[-1], "%d/%b/%Y")
+
+
 
 # Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
