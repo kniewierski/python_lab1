@@ -8,8 +8,9 @@ LOCAL_FILE = 'local_copy.log'
 if (os.path.isfile("local_copy.log") == False):
   print("Downloading local copy of log file...")
   local_file, headers = urlretrieve(URL_PATH, LOCAL_FILE, lambda x,y,z: print('.', end='', flush=True))
+  print("Download complete! Parsing log file...")
 else:
-  print("Local copy of log file found. Parsing log file...")
+  print("Local copy of log file found! Parsing log file...")
 
 
 FILE_NAME = './local_copy.log'
