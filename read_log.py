@@ -28,7 +28,7 @@ total_reqs = 0
 files = {}
 
 # split log_lines into [0:blank], [1: Date:Time], [2: Request Type], [3: file], [4: Protocol], [5: Return Code]
-regex = re.compile(r".*\[([^:]*:.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
+regex = re.compile(r".*\[([^:]*):(.*) \-[0-9]{4}\] \"([A-Z]+) (.+?) (HTTP.*\"|\") ([2-5]0[0-9]) .*")
 
 # Count number of requests in 1995
 for line in open(FILE_NAME):
@@ -45,7 +45,7 @@ for line in open(FILE_NAME):
   if len(elements) < 3:
     continue
   # Extract the Date/Time in Element 1
-  date = datetime.strptime(elements[1], "%d/%b/%Y:%H:%M:%S")
+  date = datetime.strptime(elements[1], "%d/%b/%Y")
   # Establish day of week based on date, and count number of requests per day of week
   weekday = date.isoweekday()
   if weekday == 1:
@@ -66,7 +66,7 @@ for line in open(FILE_NAME):
   # Counts the number of times each day of the week occurs in the log file
 
   # Calculates percentage of unsuccessful requests and redirected requests
-  return_code = elements[5]
+  return_code = elements[6]
   total_reqs += 1
   if int(return_code) >= 400 and int(return_code) <= 499:
     code_4xx += 1
@@ -74,7 +74,7 @@ for line in open(FILE_NAME):
     code_3xx += 1
   
   # Creates a dictionary to track the number of times a file is requested
-  filename = elements[3]
+  filename = elements[4]
   # Checks elements[3] for new files or repeated files
   if filename in files:
     # Counts additional request of the file, if already added to dictionary
