@@ -87,6 +87,8 @@ for line in open(FILE_NAME):
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
 
+# Sorts the dictionary to choose the most requested file
+
 
 
 print("There were ", last, "total requests made in the last year.")
@@ -101,4 +103,4 @@ print("The total number of requests made on Sundays:", sundays)
 print("The total number of unsuccessful requests was", code_4xx, ", resulting in", perc_4xx, "% of the total number of requests.")
 print("The total number of redirected requests was", code_3xx, ", resulting in", perc_3xx, "% of the total number of requests.")
 
-print(files)
+print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
