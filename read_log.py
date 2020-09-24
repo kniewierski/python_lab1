@@ -138,7 +138,10 @@ fri_avg = (fridays/fri_count)
 sat_avg = (saturdays/sat_count)
 sun_avg = (sundays/sun_count)
 
-# Converts Return Code totals to Percentages
+# Isolates Month/Year from Days (element 1 as string)
+month = days[4:]
+
+# Converts Return Code totals to 35
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
 
@@ -175,4 +178,4 @@ print("")
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
 
-print(elements[1][1])
+print(month)
