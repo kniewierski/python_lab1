@@ -140,10 +140,11 @@ sun_avg = (sundays/sun_count)
 
 # Isolates Month/Year from Days (element 1 as string)
 month = days[3:]
+Oct_94_ap = open("./Oct_94.log", "a")
 for line in open(FILE_NAME):
   if month == "Oct/1994":
-    Oct_94_ap = open("Oct_94.log", "a")
     Oct_94_ap.write(line)
+    Oct_94_ap.close()
 
 
 
