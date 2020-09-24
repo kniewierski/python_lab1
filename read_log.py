@@ -13,7 +13,7 @@ else:
   print("Local copy of log file found! Parsing log file...")
 
 
-FILE_NAME = './local_copy.log'
+FILE_NAME = 'local_copy.log'
 
 import re
 from datetime import datetime, timedelta, date
@@ -39,6 +39,20 @@ sun_count = 0
 code_4xx = 0
 code_3xx = 0
 total_reqs = 0
+oct_94c = 0
+nov_94c = 0
+dec_94c = 0
+jan_95c = 0
+feb_95c = 0
+mar_95c = 0
+apr_95c = 0
+may_95c = 0
+jun_95c = 0
+jul_95c = 0
+aug_95c = 0
+sep_95c = 0
+oct_95c = 0
+
 
 files = {}
 dates = {}
@@ -79,14 +93,6 @@ for line in open(FILE_NAME):
   if weekday == 7:
     sundays += 1
 
-  # Counts the number of times each day of the week occurs in the log file
-  days = elements[1]
-  # If date is not logged in dictionary, adds date to dictionary
-  if days in dates:
-    continue
-  else:
-    dates[days] = 1
-
   # Calculates percentage of unsuccessful requests and redirected requests
   return_code = elements[6]
   total_reqs += 1
@@ -104,30 +110,107 @@ for line in open(FILE_NAME):
   # Counts the initial request of the file
   else:
     files[filename] = 1
+    
+  # Takes the keys from the Dates Dictionary and converts them to date objects
+  for k in dates:
+    date_object = date.strptime(k, "%d/%b/%Y")
+    day_of_week = date_object.isoweekday()
+    # Increases counter for days of week
+    if day_of_week == 1:
+      mon_count += 1
+    if day_of_week == 2:
+      tue_count += 1
+    if day_of_week == 3:
+      wed_count += 1
+    if day_of_week == 4:
+      thu_count += 1
+    if day_of_week == 5:
+      fri_count += 1
+    if day_of_week == 6:
+      sat_count += 1
+    if day_of_week == 7:
+      sun_count += 1
+
+  # Counts the number of times each day of the week occurs in the log file
+  days = elements[1]
+  # If date is not logged in dictionary, adds date to dictionary
+  if days in dates:
+    continue
+  else:
+    dates[days] = 1
+
+for line in open(FILE_NAME):
+  # Counts number of requests per month and creates separate log file per month
+  if "Oct/1994" in line:
+    oct_94c += 1
+    open("94_10-Oct94.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Nov/1994" in line:
+    nov_94c += 1
+    open("94_11-Nov94.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Dec/1994" in line:
+    dec_94c += 1
+    open("94_12-Dec94.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Jan/1995" in line:
+    jan_95c += 1
+    open("95_01-Jan95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Feb/1995" in line:
+    feb_95c += 1
+    open("95_02-Feb95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Mar/1995" in line:
+    mar_95c += 1
+    open("95_03-Mar95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Apr/1995" in line:
+    apr_95c += 1
+    open("95_04-Apr95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "May/1995" in line:
+    may_95c += 1
+    open("95_05-May95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Jun/1995" in line:
+    jun_95c += 1
+    open("95_06-Jun95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Jul/1995" in line:
+    jul_95c += 1
+    open("95_07-Jul95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Aug/1995" in line:
+    aug_95c += 1
+    open("95_08-Aug95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Sep/1995" in line:
+    sep_95c += 1
+    open("95_09-Sep95.txt", "a").writelines(line)
+
+for line in open(FILE_NAME):
+  if "Oct/1995" in line:
+    oct_95c += 1
+    open("95_10-Oct95.txt", "a").writelines(line)
+
 
 # Extracts the First date and Last date from log file
 first_date = date.strptime(list(dates.keys())[0], "%d/%b/%Y")
 last_date = date.strptime(list(dates.keys())[-1], "%d/%b/%Y")
+dates_list = list(dates.keys())
 
-# Takes the keys from the Dates Dictionary and converts them to date objects
-for k in dates:
-  date_object = date.strptime(k, "%d/%b/%Y")
-  day_of_week = date_object.isoweekday()
-  # Increases counter for days of week
-  if day_of_week == 1:
-    mon_count += 1
-  if day_of_week == 2:
-    tue_count += 1
-  if day_of_week == 3:
-    wed_count += 1
-  if day_of_week == 4:
-    thu_count += 1
-  if day_of_week == 5:
-    fri_count += 1
-  if day_of_week == 6:
-    sat_count += 1
-  if day_of_week == 7:
-    sun_count += 1
 
 # Divides total requests per week day and divides by number of times that weekday occured in the log
 mon_avg = (mondays/mon_count)
@@ -138,17 +221,7 @@ fri_avg = (fridays/fri_count)
 sat_avg = (saturdays/sat_count)
 sun_avg = (sundays/sun_count)
 
-# Isolates Month/Year from Days (element 1 as string)
-month = days[3:]
-Oct_94_ap = open("./Oct_94.log", "a")
-for line in open(FILE_NAME):
-  if month == "Oct/1994":
-    Oct_94_ap.write(line)
-    Oct_94_ap.close()
-
-
-
-# Converts Return Code totals to 35
+# Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
 
@@ -184,5 +257,3 @@ print("The percentage of unsuccessful requests was", perc_4xx,)
 print("")
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
-
-print(month)
