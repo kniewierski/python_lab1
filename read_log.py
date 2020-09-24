@@ -175,3 +175,4 @@ print("")
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
 
+print(elements[1][1])
