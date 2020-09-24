@@ -142,9 +142,9 @@ sun_avg = (sundays/sun_count)
 month = days[3:]
 for line in open(FILE_NAME):
   if month == "Oct/1994":
-    Oct_94_ap = open(Oct_94.log, "a")
+    Oct_94_ap = open("Oct_94.log", "a")
     Oct_94_ap.write(line)
-    
+
 
 
 # Converts Return Code totals to 35
