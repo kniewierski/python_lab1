@@ -139,7 +139,13 @@ sat_avg = (saturdays/sat_count)
 sun_avg = (sundays/sun_count)
 
 # Isolates Month/Year from Days (element 1 as string)
-month = days[4:]
+month = days[3:]
+for line in open(FILE_NAME):
+  if month == "Oct/1994":
+    Oct_94_ap = open(Oct_94.log, "a")
+    Oct_94_ap.write(line)
+    
+
 
 # Converts Return Code totals to 35
 perc_4xx = (code_4xx/total_reqs)*100
