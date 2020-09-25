@@ -6,6 +6,7 @@ Howdy! You can utilize this repository in order to receive some analytical data 
 In order to access the data:
 1. Clone this repository onto a Linux OS (I used Ubuntu 18.04 to create the files)
 2. Run the file 'read_log.py' by using the following command
+
 $ python3 read_log.py
 3. That's it!
 
