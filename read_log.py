@@ -184,7 +184,7 @@ for line in open(FILE_NAME):
     apr_95c += 1
     open("95_04-Apr95.txt", "a").writelines(line)
 
-print("Did you know? Canada has nine percent of the world's forests!")
+print("Did you know? All ants on Earth weigh about as much as all the humans!")
 
 for line in open(FILE_NAME):
   if "May/1995" in line:
