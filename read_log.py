@@ -111,26 +111,7 @@ for line in open(FILE_NAME):
   else:
     files[filename] = 1
     
-  # Takes the keys from the Dates Dictionary and converts them to date objects
-  for k in dates:
-    date_object = date.strptime(k, "%d/%b/%Y")
-    day_of_week = date_object.isoweekday()
-    # Increases counter for days of week
-    if day_of_week == 1:
-      mon_count += 1
-    if day_of_week == 2:
-      tue_count += 1
-    if day_of_week == 3:
-      wed_count += 1
-    if day_of_week == 4:
-      thu_count += 1
-    if day_of_week == 5:
-      fri_count += 1
-    if day_of_week == 6:
-      sat_count += 1
-    if day_of_week == 7:
-      sun_count += 1
-
+  
   # Counts the number of times each day of the week occurs in the log file
   days = elements[1]
   # If date is not logged in dictionary, adds date to dictionary
@@ -138,12 +119,38 @@ for line in open(FILE_NAME):
     continue
   else:
     dates[days] = 1
+  
+print("This file will take a while to parse, however will provide fantastic information for you!")
+
+# Takes the keys from the Dates Dictionary and converts them to date objects
+dates_list = list(dates.keys())
+for i in dates_list:
+  date_object = date.strptime(i, "%d/%b/%Y")
+  day_of_week = date_object.isoweekday()
+  # Increases counter for days of week
+  if day_of_week == 1:
+    mon_count += 1
+  if day_of_week == 2:
+    tue_count += 1
+  if day_of_week == 3:
+    wed_count += 1
+  if day_of_week == 4:
+    thu_count += 1
+  if day_of_week == 5:
+    fri_count += 1
+  if day_of_week == 6:
+    sat_count += 1
+  if day_of_week == 7:
+    sun_count += 1
+
 
 for line in open(FILE_NAME):
   # Counts number of requests per month and creates separate log file per month
   if "Oct/1994" in line:
     oct_94c += 1
     open("94_10-Oct94.txt", "a").writelines(line)
+
+print("Right now, I'm splitting up the log file into much smaller files organized by month! Did you know the original file contained over 700,000 lines of code?")
 
 for line in open(FILE_NAME):
   if "Nov/1994" in line:
@@ -160,6 +167,8 @@ for line in open(FILE_NAME):
     jan_95c += 1
     open("95_01-Jan95.txt", "a").writelines(line)
 
+print("Fun fact: The Canary Islands are named after dogs, not birds!")
+
 for line in open(FILE_NAME):
   if "Feb/1995" in line:
     feb_95c += 1
@@ -174,6 +183,8 @@ for line in open(FILE_NAME):
   if "Apr/1995" in line:
     apr_95c += 1
     open("95_04-Apr95.txt", "a").writelines(line)
+
+print("Did you know? Canada has nine percent of the world's forests!")
 
 for line in open(FILE_NAME):
   if "May/1995" in line:
@@ -190,6 +201,8 @@ for line in open(FILE_NAME):
     jul_95c += 1
     open("95_07-Jul95.txt", "a").writelines(line)
 
+print("Only 2 countries in the world have names that begin with \"The\", Can you guess them?")
+
 for line in open(FILE_NAME):
   if "Aug/1995" in line:
     aug_95c += 1
@@ -200,6 +213,8 @@ for line in open(FILE_NAME):
     sep_95c += 1
     open("95_09-Sep95.txt", "a").writelines(line)
 
+print("If you thought the United States or the United Kingdom, you're incorrect. Believe it or not, the answers are: The Gambia and The Bahamas!")
+
 for line in open(FILE_NAME):
   if "Oct/1995" in line:
     oct_95c += 1
@@ -209,7 +224,7 @@ for line in open(FILE_NAME):
 # Extracts the First date and Last date from log file
 first_date = date.strptime(list(dates.keys())[0], "%d/%b/%Y")
 last_date = date.strptime(list(dates.keys())[-1], "%d/%b/%Y")
-dates_list = list(dates.keys())
+
 
 
 # Divides total requests per week day and divides by number of times that weekday occured in the log
@@ -220,14 +235,16 @@ thu_avg = (thursdays/thu_count)
 fri_avg = (fridays/fri_count)
 sat_avg = (saturdays/sat_count)
 sun_avg = (sundays/sun_count)
-
+# Average number of weeks in log period
+week_avg = (mon_count + tue_count + wed_count + thu_count + fri_count + sat_count + sun_count)/7
 # Converts Return Code totals to Percentages
 perc_4xx = (code_4xx/total_reqs)*100
 perc_3xx = (code_3xx/total_reqs)*100
+# Average requests per week
+req_week = total/week_avg
 
-
-
-
+print("")
+print("")
 print("There were ", last, "total requests made in the last year.")
 print("There were ", total, "total requests made in the time period represented by the log.")
 print("")
@@ -255,5 +272,16 @@ print("")
 print("The percentage of redirected requests was", perc_3xx,)
 print("The percentage of unsuccessful requests was", perc_4xx,)
 print("")
+print("The average amount of requests per week:", req_week)
+print("")
+print("REQUESTS BY MONTH")
+print("Q4'94: Oct -", oct_94c, "| Nov -", nov_94c, "| Dec -", dec_94c)
+print("Q1'95: Jan -", jan_95c, "| Feb -", feb_95c, "| Mar -", mar_95c)
+print("Q2'95: Apr -", apr_95c, "| May -", may_95c, "| Jun -", jun_95c)
+print("Q3'95: Jul -", jul_95c, "| Aug -", aug_95c, "| Sep -", sep_95c)
+print("Q4'95: Oct -", oct_95c)
+print("*NOTE: Number of days in October '94 and '95 were less than the full month.*")
+print("")
 print("The most requested file was:", sorted(files, key = files.get, reverse = True)[:1])
 print("The least requested file was:", sorted(files, key = files.get, reverse = False)[:1])
+print("")
