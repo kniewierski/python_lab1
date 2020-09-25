@@ -8,6 +8,7 @@ In order to access the data:
 2. Run the file 'read_log.py' by using the following command
 
 $ python3 read_log.py
+
 3. That's it!
 
 The log file will create new text files for each month represented by the log, which follow this naming convention: YY_MM-MonYY.txt (e.g. 94_10-Oct94.txt)
